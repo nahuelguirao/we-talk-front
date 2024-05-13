@@ -1,0 +1,111 @@
+.login_modal {
+    margin: 50px 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login_modal_close {
+    position: absolute;
+    left: 20px;
+    top: 50px;
+    font-size: 2rem;
+    background-color: #FFF6FC;
+    border-radius: 100vmax;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.login_modal_info_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login_modal_close:hover {
+    transform: scale(1.05);
+}
+
+.login_modal img {
+    width: 75px;
+    align-self: center;
+}
+
+.login_modal h3 {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 1.2rem;
+}
+
+.login_modal hr {
+    height: 2px;
+    border: none;
+    background-color: #402B3A;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.login_modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.container_input_form {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.container_input_form label {
+    align-self: flex-start;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.login_modal form input {
+    padding: 5px 0 5px 10px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.container_password_input {
+    width: 100%;
+    position: relative;
+
+}
+
+.login_modal_show_password {
+    cursor: pointer;
+    font-size: 2.2rem;
+    position: absolute;
+    right: 0;
+    top: 3px
+}
+
+.login_modal_login_button {
+    margin-top: 15px;
+}
+
+.login_modal p {
+    margin-top: 50px;
+}
+
+@media (min-width: 550px) {
+    .login_modal {
+        justify-content: start;
+    }
+
+    .login_modal_close {
+        top: 20px;
+    }
+}
