@@ -4,6 +4,7 @@ import {
   verifyPassword,
   verifyUser,
 } from "../../helpers/verifications";
+import toast from "react-hot-toast";
 
 export function useRegister() {
   const [registerFormValues, setRegisterFormValues] = useState({
@@ -32,28 +33,35 @@ export function useRegister() {
       password.length === 0 ||
       repeatPassword.length === 0
     ) {
-      alert("Primero completa todos los campos");
+      toast("Primero completa todos los campos", { icon: "⚠️" });
       return;
     }
 
     if (password != repeatPassword) {
-      alert("Las contraseñas no coinciden!");
+      toast("¡Las contraseñas no coinciden!", { icon: "⚠️" });
       return;
     }
 
     if (!verifyUser(username)) {
-      alert("El username tiene que tener entre 4 y 50 caracteres.");
+      toast("El username tiene que tener entre 4 y 50 caracteres.", {
+        icon: "⚠️",
+      });
       return;
     }
 
     if (!verifyEmail(email)) {
-      alert("Verifique haber ingresado un formato de E-mail válido.");
+      toast("Verifique haber ingresado un formato de E-mail válido.", {
+        icon: "⚠️",
+      });
       return;
     }
 
     if (!verifyPassword(password)) {
-      alert(
-        "La contraseña debe contener mínimo 8 caracteres, 1 mayúscula y 1 carácter especial."
+      toast(
+        "La contraseña debe contener mínimo 8 caracteres, 1 mayúscula y 1 carácter especial.",
+        {
+          icon: "⚠️",
+        }
       );
       return;
     }
@@ -64,6 +72,7 @@ export function useRegister() {
       password,
     };
 
+    const loadingToast = toast.loading("Registrandote...");
     try {
       const response = await fetch("http://localhost:3000/users/register", {
         method: "POST",
@@ -76,11 +85,15 @@ export function useRegister() {
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.message);
+        toast.dismiss(loadingToast);
+        toast(result.message + "\nInicia sesión.", { icon: "✔️" });
       } else {
-        alert(result.error);
+        toast.dismiss(loadingToast);
+        toast.error(result.error);
       }
     } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Error interno del servidor, intente nuevamente.");
       console.error("Error registrando al usuario: ", error);
     }
   };

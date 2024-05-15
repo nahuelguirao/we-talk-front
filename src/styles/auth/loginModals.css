@@ -1,5 +1,5 @@
 .login_modal {
-    margin: 50px 0;
+    margin: 75px 0;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -28,6 +28,7 @@
 }
 
 .login_modal img {
+    margin-top: 100px;
     width: 75px;
     align-self: center;
 }
@@ -97,7 +98,7 @@
 }
 
 .login_modal p {
-    margin-top: 50px;
+    margin: 50px 0 20px 0;
 }
 
 @media (min-width: 550px) {
@@ -107,5 +108,13 @@
 
     .login_modal_close {
         top: 20px;
+    }
+
+    .login_modal img {
+        margin-top: 0;
+    }
+
+    .login_modal p {
+        margin: 50px 0 0 0;
     }
 }

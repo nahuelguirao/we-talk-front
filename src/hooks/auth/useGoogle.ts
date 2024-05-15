@@ -1,5 +1,6 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/config";
+import toast from "react-hot-toast";
 
 export function useGoogle() {
   const googleAuth = async () => {
@@ -14,6 +15,8 @@ export function useGoogle() {
       imageURL: photoURL,
     };
 
+    const loadingToast = toast.loading("Verificando...");
+
     try {
       const response = await fetch("http://localhost:3000/users/google", {
         method: "POST",
@@ -26,12 +29,17 @@ export function useGoogle() {
       const result = await response.json();
 
       if (response.ok) {
+        toast.dismiss(loadingToast);
         //Token and user info
         console.log(result);
+        toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
       } else {
-        alert(result.error);
+        toast.dismiss(loadingToast);
+        toast.error(result.error);
       }
     } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Error interno del servidor, intente nuevamente.");
       console.error("Error durante la autentación con google: ", error);
     }
   };

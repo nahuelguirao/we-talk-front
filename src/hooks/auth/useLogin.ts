@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { verifyEmail, verifyPassword } from "../../helpers/verifications";
+import { verifyEmail } from "../../helpers/verifications";
+import toast from "react-hot-toast";
 
 interface LoginFormValues {
   email: string;
@@ -26,21 +27,16 @@ export function useLogin() {
     const { email, password } = loginFormValues;
 
     if (email.length === 0 || password.length === 0) {
-      alert("Completa los campos primero!");
+      toast("¡Completa los campos primero!", { icon: "⚠️" });
       return;
     }
 
     if (!verifyEmail(email)) {
-      alert("Formato de E-mail incorrecto");
+      toast("Formato de E-mail incorrecto.", { icon: "⚠️" });
       return;
     }
 
-    if (!verifyPassword(password)) {
-      alert(
-        "Recuerda que tu contraseña tiene 8 caracteres o mas, al menos una mayúscula y un carácter especial."
-      );
-      return;
-    }
+    const loadingToast = toast.loading("Iniciando sesión...");
 
     try {
       const response = await fetch("http://localhost:3000/users/login", {
@@ -54,11 +50,16 @@ export function useLogin() {
       const result = await response.json();
 
       if (response.ok) {
+        toast.dismiss(loadingToast);
         console.log(result);
+        toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
       } else {
-        alert(result.error);
+        toast.dismiss(loadingToast);
+        toast.error(result.error);
       }
     } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Error interno del servidor, intente nuevamente.");
       console.error("Error intentando logear al usuario: ", error);
     }
   };

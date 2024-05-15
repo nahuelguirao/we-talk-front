@@ -30,6 +30,17 @@
     margin-bottom: 40px;
 }
 
+.button_google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.google_svg {
+    font-size: 1.5rem;
+}
+
 .button_general {
     border: none;
     padding: 10px 20px;

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { BiHide, BiShow } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
 import { useRegister } from "../../hooks/auth/useRegister";
 import parrotImg from "../../assets/parrotLogo.png";
+import { useGoogle } from "../../hooks/auth/useGoogle";
 
 interface Props {
   setShowRegisterModal: (value: boolean) => void;
@@ -16,6 +18,9 @@ export function RegisterModal({
   //Register (normal) hook
   const { registerFormValues, handleRegisterValues, handleRegister } =
     useRegister();
+
+  //Login and Register (google)
+  const { googleAuth } = useGoogle();
 
   //Passwords visibles state
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +36,9 @@ export function RegisterModal({
         <img src={parrotImg} alt="Parrot logo" />
         <div className="login_modal_info_container">
           <h3>Únete a WeTalk hoy</h3>
-          <button className="button_general">Google</button>
+          <button className="button_general button_google" onClick={googleAuth}>
+            Registrate con Google <FcGoogle className="google_svg" />
+          </button>
           <hr />
           <form onSubmit={(e) => handleRegister(e)}>
             <div className="container_input_form">

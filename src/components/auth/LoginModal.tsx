@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { BiHide, BiShow } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { useGoogle } from "../../hooks/auth/useGoogle";
 import parrotImg from "../../assets/parrotLogo.png";
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export function LoginModal({ setShowLoginModal, navigateToRegister }: Props) {
-  //Login and Register (google)  * TODO: Logout
+  //Login and Register (google)
   const { googleAuth } = useGoogle();
 
   //Login (normal) hook
@@ -30,8 +31,8 @@ export function LoginModal({ setShowLoginModal, navigateToRegister }: Props) {
         <img src={parrotImg} alt="Parrot logo" />
         <div className="login_modal_info_container">
           <h3>Inicia sesión en WeTalk</h3>
-          <button className="button_general" onClick={googleAuth}>
-            Google
+          <button className="button_general button_google" onClick={googleAuth}>
+            Iniciar con Google <FcGoogle className="google_svg" />
           </button>
           <hr />
           <form onSubmit={(e) => handleLogin(e)}>
