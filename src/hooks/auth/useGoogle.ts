@@ -1,8 +1,12 @@
+import { useContext } from "react";
+import { UserContext } from "../../context/auth/UserContext";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { firebaseAuth } from "../../firebase/config";
 import toast from "react-hot-toast";
 
 export function useGoogle() {
+  const { setUser } = useContext(UserContext);
+
   const googleAuth = async () => {
     const googleProvider = new GoogleAuthProvider();
     const response = await signInWithPopup(firebaseAuth, googleProvider);
@@ -31,7 +35,8 @@ export function useGoogle() {
       if (response.ok) {
         toast.dismiss(loadingToast);
         //Token and user info
-        console.log(result);
+        setUser(result);
+        localStorage.setItem("token", result.token);
         toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
       } else {
         toast.dismiss(loadingToast);

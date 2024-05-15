@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { UserContext } from "../../context/auth/UserContext";
 import { verifyEmail } from "../../helpers/verifications";
 import toast from "react-hot-toast";
 
@@ -8,6 +9,8 @@ interface LoginFormValues {
 }
 
 export function useLogin() {
+  const { setUser } = useContext(UserContext);
+
   const [loginFormValues, setLoginFormValues] = useState({
     email: "",
     password: "",
@@ -51,7 +54,8 @@ export function useLogin() {
 
       if (response.ok) {
         toast.dismiss(loadingToast);
-        console.log(result);
+        setUser(result);
+        localStorage.setItem("token", result.token);
         toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
       } else {
         toast.dismiss(loadingToast);

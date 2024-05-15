@@ -3,9 +3,9 @@ import { RegisterModal } from "./components/auth/RegisterModal";
 import { LoginModal } from "./components/auth/LoginModal";
 import { WelcomeLeft } from "./components/auth/WelcomeLeft";
 import { WelcomeRight } from "./components/auth/WelcomeRight";
+import { Toaster } from "react-hot-toast";
 import "./styles/auth/login.css";
 import "./styles/auth/loginModals.css";
-import { Toaster } from "react-hot-toast";
 
 function App() {
   //Modals navigation (login and register forms)
@@ -22,7 +22,6 @@ function App() {
   //  - Alertas con hot toast - OK
   //  - Revisar código + comentarios
   //  - Agregar logo Google a los botones correspondientes - OK
-  //  - Logout de google en useGoogle
   //  - Setear state context de Loading + User
 
   return (
