@@ -7,11 +7,11 @@ import { useGoogle } from "../../hooks/auth/useGoogle";
 import parrotImg from "../../assets/parrotLogo.png";
 
 interface Props {
-  setShowLoginModal: (value: boolean) => void;
   navigateToRegister: () => void;
+  closeLoginModal: () => void;
 }
 
-export function LoginModal({ setShowLoginModal, navigateToRegister }: Props) {
+export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
   //Login and Register (google)
   const { googleAuth } = useGoogle();
 
@@ -24,10 +24,7 @@ export function LoginModal({ setShowLoginModal, navigateToRegister }: Props) {
   return (
     <div className="modal-overlay">
       <div className="modal login_modal">
-        <IoIosClose
-          className="login_modal_close"
-          onClick={() => setShowLoginModal(false)}
-        />
+        <IoIosClose className="login_modal_close" onClick={closeLoginModal} />
         <img src={parrotImg} alt="Parrot logo" />
         <div className="login_modal_info_container">
           <h3>Inicia sesión en WeTalk</h3>

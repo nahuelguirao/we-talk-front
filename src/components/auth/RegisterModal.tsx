@@ -7,14 +7,11 @@ import parrotImg from "../../assets/parrotLogo.png";
 import { useGoogle } from "../../hooks/auth/useGoogle";
 
 interface Props {
-  setShowRegisterModal: (value: boolean) => void;
   navigateToLogin: () => void;
+  closeRegisterModal: () => void;
 }
 
-export function RegisterModal({
-  setShowRegisterModal,
-  navigateToLogin,
-}: Props) {
+export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
   //Register (normal) hook
   const { registerFormValues, handleRegisterValues, handleRegister } =
     useRegister();
@@ -31,7 +28,7 @@ export function RegisterModal({
       <div className="modal login_modal">
         <IoIosClose
           className="login_modal_close"
-          onClick={() => setShowRegisterModal(false)}
+          onClick={closeRegisterModal}
         />
         <img src={parrotImg} alt="Parrot logo" />
         <div className="login_modal_info_container">

@@ -1,4 +1,3 @@
-import { useModalView } from "./hooks/auth/useModalView";
 import { RegisterModal } from "./components/auth/RegisterModal";
 import { LoginModal } from "./components/auth/LoginModal";
 import { WelcomeLeft } from "./components/auth/WelcomeLeft";
@@ -9,17 +8,18 @@ import "./styles/auth/loginModals.css";
 import { useContext } from "react";
 import { LoadingContext } from "./context/global/LoadingContext";
 import { Loading } from "./components/global/Loading";
+import { ModalsContext } from "./context/auth/ModalsContext";
 
 function App() {
   //Modals navigation (login and register forms)
   const {
-    setShowLoginModal,
-    setShowRegisterModal,
     showLoginModal,
     showRegisterModal,
     navigateToLogin,
     navigateToRegister,
-  } = useModalView();
+    closeLoginModal,
+    closeRegisterModal,
+  } = useContext(ModalsContext);
 
   //TODO (para terminar PARTE AUTH)
   //  - Alertas con hot toast - OK
@@ -48,22 +48,22 @@ function App() {
         <WelcomeLeft />
         {/* RIGHT SIDE */}
         <WelcomeRight
-          setShowLoginModal={setShowLoginModal}
-          setShowRegisterModal={setShowRegisterModal}
+          navigateToRegister={navigateToRegister}
+          navigateToLogin={navigateToLogin}
         />
 
         {/* LOGIN MODAL */}
         {showLoginModal && (
           <LoginModal
             navigateToRegister={navigateToRegister}
-            setShowLoginModal={setShowLoginModal}
+            closeLoginModal={closeLoginModal}
           />
         )}
         {/* REGISTER MODAL */}
         {showRegisterModal && (
           <RegisterModal
             navigateToLogin={navigateToLogin}
-            setShowRegisterModal={setShowRegisterModal}
+            closeRegisterModal={closeRegisterModal}
           />
         )}
       </main>

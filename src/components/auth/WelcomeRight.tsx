@@ -1,12 +1,9 @@
 interface Props {
-  setShowLoginModal: (value: boolean) => void;
-  setShowRegisterModal: (value: boolean) => void;
+  navigateToRegister: () => void;
+  navigateToLogin: () => void;
 }
 
-export function WelcomeRight({
-  setShowLoginModal,
-  setShowRegisterModal,
-}: Props) {
+export function WelcomeRight({ navigateToLogin, navigateToRegister }: Props) {
   return (
     <>
       {/* RIGHT SIDE */}
@@ -16,10 +13,7 @@ export function WelcomeRight({
           Y se parte de la comunidad.
         </p>
         <div>
-          <button
-            className="button_general"
-            onClick={() => setShowRegisterModal(true)}
-          >
+          <button className="button_general" onClick={navigateToRegister}>
             Crear Cuenta
           </button>
           <p className="login_terms_p">
@@ -32,7 +26,7 @@ export function WelcomeRight({
           <h4>¿Ya tienes una cuenta?</h4>
           <button
             className="button_general button_login"
-            onClick={() => setShowLoginModal(true)}
+            onClick={navigateToLogin}
           >
             Iniciar sesión
           </button>
