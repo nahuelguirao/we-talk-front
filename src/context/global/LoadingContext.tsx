@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 
+//LOADING CONTEXT
 interface ContextProps {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
@@ -16,6 +17,7 @@ export const LoadingContext = createContext<ContextProps>({
   setIsLoading: () => {},
 });
 
+//LOADING PROVIDER
 interface Props {
   children: ReactNode;
 }

@@ -1,15 +1,19 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { LoadingContext } from "../../context/global/LoadingContext";
+import { ModalsContext } from "../../context/auth/ModalsContext";
 import {
   verifyEmail,
   verifyPassword,
   verifyUser,
 } from "../../helpers/verifications";
 import toast from "react-hot-toast";
-import { LoadingContext } from "../../context/global/LoadingContext";
 
 export function useRegister() {
+  //GLOBAL STATE UTILITIES
   const { setIsLoading } = useContext(LoadingContext);
+  const { navigateToLogin } = useContext(ModalsContext);
 
+  //Object to manage form values
   const [registerFormValues, setRegisterFormValues] = useState({
     username: "",
     email: "",
@@ -17,6 +21,7 @@ export function useRegister() {
     repeatPassword: "",
   });
 
+  //Controls inputs changes
   const handleRegisterValues = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -26,10 +31,12 @@ export function useRegister() {
     }));
   };
 
+  //Tries to REGISTER an user
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { username, email, password, repeatPassword } = registerFormValues;
 
+    // VERIFICATIONS
     if (
       username.length === 0 ||
       email.length === 0 ||
@@ -90,7 +97,9 @@ export function useRegister() {
 
       if (response.ok) {
         setIsLoading(false);
+        //If all ok, navigates to LOGIN modal to sign in
         toast(result.message + "\nInicia sesión.", { icon: "✔️" });
+        navigateToLogin();
       } else {
         setIsLoading(false);
         toast.error(result.error);

@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useLogin } from "../../hooks/auth/useLogin";
+import { useGoogle } from "../../hooks/auth/useGoogle";
 import { IoIosClose } from "react-icons/io";
 import { BiHide, BiShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import { useLogin } from "../../hooks/auth/useLogin";
-import { useGoogle } from "../../hooks/auth/useGoogle";
 import parrotImg from "../../assets/parrotLogo.png";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
-  //Login and Register (google)
+  //Google Auth hook
   const { googleAuth } = useGoogle();
 
   //Login (normal) hook
@@ -23,6 +23,7 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
 
   return (
     <div className="modal-overlay">
+      {/* MODAL */}
       <div className="modal login_modal">
         <IoIosClose className="login_modal_close" onClick={closeLoginModal} />
         <img src={parrotImg} alt="Parrot logo" />
@@ -33,6 +34,7 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
           </button>
           <hr />
           <form onSubmit={(e) => handleLogin(e)}>
+            {/* E-MAIL INPUT */}
             <div className="container_input_form">
               <label htmlFor="email">E-mail:</label>
               <input
@@ -44,6 +46,7 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
                 onChange={(e) => handeLoginValues(e)}
               />
             </div>
+            {/* PASSWORD INPUT */}
             <div className="container_input_form">
               <label htmlFor="passwordLogin">Contraseña:</label>
               <div className="container_password_input">

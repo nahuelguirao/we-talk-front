@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 
+//MODALS CONTEXT
 export const ModalsContext = createContext({
   showLoginModal: true,
   navigateToLogin: () => {},
@@ -9,6 +10,7 @@ export const ModalsContext = createContext({
   closeLoginModal: () => {},
 });
 
+//MODALS PROVIDER
 interface ProviderProps {
   children: ReactNode;
 }

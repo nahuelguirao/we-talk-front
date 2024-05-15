@@ -8,6 +8,7 @@ import {
 import { UserData } from "../../types";
 import toast from "react-hot-toast";
 
+//USER CONTEXT + Initial State
 const initialState: UserData = {
   token: undefined,
   user: {
@@ -27,10 +28,13 @@ export const UserContext = createContext<Props>({
   setUser: () => {},
 });
 
+//USER PROVIDER
 export const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserData>(() => {
+    //Tries to get token from local storage
     const localStorageToken = localStorage.getItem("token");
 
+    //If there is a token tries to check validity
     if (localStorageToken) {
       fetch("http://localhost:3000/users/verify-token", {
         headers: {
@@ -45,6 +49,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
           }
         })
         .then((data) => {
+          //If all ok, sets user data in the state + Welcome alert
           if (data.userData) {
             setUser({ token: localStorageToken, user: data.userData });
             toast(`¡Hola denuevo ${data.userData.username}!`, { icon: "👋" });
@@ -54,6 +59,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
           console.error(err);
         });
     }
+    //If there is no token return initial state
     return initialState;
   });
 

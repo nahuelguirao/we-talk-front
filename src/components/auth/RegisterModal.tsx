@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useRegister } from "../../hooks/auth/useRegister";
+import { useGoogle } from "../../hooks/auth/useGoogle";
 import { IoIosClose } from "react-icons/io";
 import { BiHide, BiShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import { useRegister } from "../../hooks/auth/useRegister";
 import parrotImg from "../../assets/parrotLogo.png";
-import { useGoogle } from "../../hooks/auth/useGoogle";
 
 interface Props {
   navigateToLogin: () => void;
@@ -16,7 +16,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
   const { registerFormValues, handleRegisterValues, handleRegister } =
     useRegister();
 
-  //Login and Register (google)
+  //Google Auth hook
   const { googleAuth } = useGoogle();
 
   //Passwords visibles state
@@ -25,6 +25,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
 
   return (
     <div className="modal-overlay">
+      {/* MODAL */}
       <div className="modal login_modal">
         <IoIosClose
           className="login_modal_close"
@@ -38,6 +39,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
           </button>
           <hr />
           <form onSubmit={(e) => handleRegister(e)}>
+            {/* USERNAME INPUT */}
             <div className="container_input_form">
               <label htmlFor="username">Nombre de usuario:</label>
               <input
@@ -49,6 +51,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
                 onChange={(e) => handleRegisterValues(e)}
               />
             </div>
+            {/* E-MAIL INPUT */}
             <div className="container_input_form">
               <label htmlFor="email">E-mail:</label>
               <input
@@ -60,6 +63,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
                 onChange={(e) => handleRegisterValues(e)}
               />
             </div>
+            {/* PASSWORD INPUT */}
             <div className="container_input_form">
               <label htmlFor="passwordRegister">Contraseña:</label>
               <div className="container_password_input">
@@ -80,6 +84,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
                 </div>
               </div>
             </div>
+            {/* REPEAT PASSWORD INPUT */}
             <div className="container_input_form">
               <label htmlFor="repeatPassword">Repetir contraseña:</label>
               <div className="container_password_input">

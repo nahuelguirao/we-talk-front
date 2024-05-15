@@ -4,6 +4,7 @@ import weLoveImg from "../../assets/loginImg.png";
 export function WelcomeLeft() {
   return (
     <>
+      {/* LEFT SIDE */}
       <section className="section_love">
         <img
           src={parrotImg}

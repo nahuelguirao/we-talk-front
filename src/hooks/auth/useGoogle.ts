@@ -1,31 +1,37 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../context/auth/UserContext";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { firebaseAuth } from "../../firebase/config";
-import toast from "react-hot-toast";
 import { LoadingContext } from "../../context/global/LoadingContext";
+import { firebaseAuth } from "../../firebase/config";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import toast from "react-hot-toast";
 
 export function useGoogle() {
+  //GLOBAL STATE UTILITIES
   const { setUser } = useContext(UserContext);
   const { setIsLoading } = useContext(LoadingContext);
 
+  //Google auth process
   const googleAuth = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
+      //Init a google provider from Firebase
       const googleProvider = new GoogleAuthProvider();
       const responseGoogle = await signInWithPopup(
         firebaseAuth,
         googleProvider
       );
 
+      //Desestructured elements from the response of Firebase
       const { displayName, email, photoURL } = responseGoogle.user;
 
+      //Prepares data for the API conditions
       const userCredentials = {
         name: displayName,
         email,
         imageURL: photoURL,
       };
 
+      //Tries to fetch with de userCredentials
       const response = await fetch("http://localhost:3000/users/google", {
         method: "POST",
         headers: {
@@ -38,7 +44,7 @@ export function useGoogle() {
 
       if (response.ok) {
         setIsLoading(false);
-        //Token and user info
+        //Set Token in local storage + Global user context + Welcome alert
         setUser(result);
         localStorage.setItem("token", result.token);
         toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
@@ -48,6 +54,7 @@ export function useGoogle() {
       }
     } catch (error: any) {
       setIsLoading(false);
+      // Specific error alert (if the use close google popup before login)
       if (error.code === "auth/popup-closed-by-user") {
         toast.error("Algo salió mal, intenta denuevo.");
       } else {

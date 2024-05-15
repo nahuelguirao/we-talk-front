@@ -27,7 +27,7 @@ export function Loading({ text }: { text: string }) {
           </div>
           <div className="spoke"></div>
         </div>
-        {/* TEXT */}
+        {/* TEXT + Animation */}
         <h4>
           {text}
           <span className="loader-dot loader-dot-1">.</span>

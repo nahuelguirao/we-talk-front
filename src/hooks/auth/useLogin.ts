@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { UserContext } from "../../context/auth/UserContext";
+import { LoadingContext } from "../../context/global/LoadingContext";
 import { verifyEmail } from "../../helpers/verifications";
 import toast from "react-hot-toast";
-import { LoadingContext } from "../../context/global/LoadingContext";
 
 interface LoginFormValues {
   email: string;
@@ -10,14 +10,17 @@ interface LoginFormValues {
 }
 
 export function useLogin() {
+  // GLOBAL STATE UTILITIES
   const { setUser } = useContext(UserContext);
   const { setIsLoading } = useContext(LoadingContext);
 
+  //Object to manage form values
   const [loginFormValues, setLoginFormValues] = useState({
     email: "",
     password: "",
   });
 
+  //Control inputs changes
   const handeLoginValues = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -26,11 +29,14 @@ export function useLogin() {
       [name]: value,
     }));
   };
+
+  //Tries to LOGIN an user
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { email, password } = loginFormValues;
 
+    //VERIFICATIONS
     if (email.length === 0 || password.length === 0) {
       toast("¡Completa los campos primero!", { icon: "⚠️" });
       return;
@@ -56,6 +62,7 @@ export function useLogin() {
 
       if (response.ok) {
         setIsLoading(false);
+        //Sets user data in the context + local storage token
         setUser(result);
         localStorage.setItem("token", result.token);
         toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
