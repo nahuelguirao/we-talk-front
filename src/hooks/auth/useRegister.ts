@@ -1,12 +1,15 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import {
   verifyEmail,
   verifyPassword,
   verifyUser,
 } from "../../helpers/verifications";
 import toast from "react-hot-toast";
+import { LoadingContext } from "../../context/global/LoadingContext";
 
 export function useRegister() {
+  const { setIsLoading } = useContext(LoadingContext);
+
   const [registerFormValues, setRegisterFormValues] = useState({
     username: "",
     email: "",
@@ -72,7 +75,8 @@ export function useRegister() {
       password,
     };
 
-    const loadingToast = toast.loading("Registrandote...");
+    setIsLoading(true);
+
     try {
       const response = await fetch("http://localhost:3000/users/register", {
         method: "POST",
@@ -85,14 +89,14 @@ export function useRegister() {
       const result = await response.json();
 
       if (response.ok) {
-        toast.dismiss(loadingToast);
+        setIsLoading(false);
         toast(result.message + "\nInicia sesión.", { icon: "✔️" });
       } else {
-        toast.dismiss(loadingToast);
+        setIsLoading(false);
         toast.error(result.error);
       }
     } catch (error) {
-      toast.dismiss(loadingToast);
+      setIsLoading(false);
       toast.error("Error interno del servidor, intente nuevamente.");
       console.error("Error registrando al usuario: ", error);
     }
