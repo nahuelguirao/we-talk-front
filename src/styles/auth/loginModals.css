@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    user-select: none;
 }
 
 .login_modal_close {
@@ -82,7 +83,40 @@
 .container_password_input {
     width: 100%;
     position: relative;
+}
 
+.password_requirements {
+    align-self: flex-end;
+    position: relative;
+}
+
+.password_requirements_h5 {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.password_requirements_info {
+    color: #402B3A;
+    background-color: #E2F4C5;
+    border: 1px solid #A8CD9F;
+    border-radius: 16px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    z-index: 2;
+    top: 30px;
+    right: 15%;
+    width: 200px;
+}
+
+.login_modal .password_requirements_info p {
+    margin: 0;
+    font-size: 12px;
 }
 
 .login_modal_show_password {
@@ -97,7 +131,7 @@
     margin-top: 15px;
 }
 
-.login_modal p {
+.specific_p {
     margin: 50px 0 20px 0;
 }
 

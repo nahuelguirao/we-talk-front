@@ -71,7 +71,7 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
               Iniciar sesión
             </button>
           </form>
-          <p>
+          <p className="specific_p">
             ¿No tienes cuenta?{" "}
             <span className="login_terms_span" onClick={navigateToRegister}>
               Regístrate
