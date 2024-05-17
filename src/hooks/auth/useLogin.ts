@@ -1,8 +1,9 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/auth/UserContext";
-import { LoadingContext } from "../../context/global/LoadingContext";
 import { verifyEmail } from "../../helpers/verifications";
 import toast from "react-hot-toast";
+import { ModalsContext } from "../../context/auth/ModalsContext";
 
 interface LoginFormValues {
   email: string;
@@ -10,9 +11,12 @@ interface LoginFormValues {
 }
 
 export function useLogin() {
+  //Navigate hook
+  const navigate = useNavigate();
+
   // GLOBAL STATE UTILITIES
-  const { setUser } = useContext(UserContext);
-  const { setIsLoading } = useContext(LoadingContext);
+  const { setUser, setIsLoading } = useContext(UserContext);
+  const { closeLoginModal, closeRegisterModal } = useContext(ModalsContext);
 
   //Object to manage form values
   const [loginFormValues, setLoginFormValues] = useState({
@@ -65,7 +69,10 @@ export function useLogin() {
         //Sets user data in the context + local storage token
         setUser(result);
         localStorage.setItem("token", result.token);
+        navigate("/");
         toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
+        closeLoginModal();
+        closeRegisterModal();
       } else {
         setIsLoading(false);
         toast.error(result.error);

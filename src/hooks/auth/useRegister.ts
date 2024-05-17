@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { LoadingContext } from "../../context/global/LoadingContext";
+import { UserContext } from "../../context/auth/UserContext";
 import { ModalsContext } from "../../context/auth/ModalsContext";
 import {
   verifyEmail,
@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 export function useRegister() {
   //GLOBAL STATE UTILITIES
-  const { setIsLoading } = useContext(LoadingContext);
+  const { setIsLoading } = useContext(UserContext);
   const { navigateToLogin } = useContext(ModalsContext);
 
   //Object to manage form values

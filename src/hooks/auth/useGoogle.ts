@@ -1,14 +1,18 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/auth/UserContext";
-import { LoadingContext } from "../../context/global/LoadingContext";
+import { ModalsContext } from "../../context/auth/ModalsContext";
 import { firebaseAuth } from "../../firebase/config";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
 
 export function useGoogle() {
+  //Navigate hook
+  const navigate = useNavigate();
+
   //GLOBAL STATE UTILITIES
-  const { setUser } = useContext(UserContext);
-  const { setIsLoading } = useContext(LoadingContext);
+  const { setUser, setIsLoading } = useContext(UserContext);
+  const { closeRegisterModal, closeLoginModal } = useContext(ModalsContext);
 
   //Google auth process
   const googleAuth = async () => {
@@ -48,6 +52,7 @@ export function useGoogle() {
         setUser(result);
         localStorage.setItem("token", result.token);
         toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
+        navigate("/");
       } else {
         setIsLoading(false);
         toast.error(result.error);
@@ -61,6 +66,9 @@ export function useGoogle() {
         toast.error("Error interno del servidor, intente nuevamente.");
         console.error("Error durante la autenticación con Google: ", error);
       }
+    } finally {
+      closeLoginModal();
+      closeRegisterModal();
     }
   };
 
