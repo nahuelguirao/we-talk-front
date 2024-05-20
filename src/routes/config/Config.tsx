@@ -9,6 +9,7 @@ interface Props {
 //PRIVATE ROUTE (Denies to acces private routes if the user is not registered)
 export const PrivateRoute = ({ element }: Props) => {
   const { user, isLoading } = useContext(UserContext);
+
   if (isLoading) {
     return;
   }

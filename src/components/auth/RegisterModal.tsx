@@ -53,6 +53,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
             <div className="container_input_form">
               <label htmlFor="username">Nombre de usuario:</label>
               <input
+                className="general_input"
                 type="text"
                 placeholder="Ingrese su nombre de usuario..."
                 id="username"
@@ -65,6 +66,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
             <div className="container_input_form">
               <label htmlFor="email">E-mail:</label>
               <input
+                className="general_input"
                 type="email"
                 placeholder="Ingrese su E-mail..."
                 id="email"
@@ -78,6 +80,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
               <label htmlFor="passwordRegister">Contraseña:</label>
               <div className="container_password_input">
                 <input
+                  className="general_input"
                   type={showPassword ? "text" : "password"}
                   placeholder="Ingrese su contraseña..."
                   id="passwordRegister"
@@ -116,6 +119,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
               <label htmlFor="repeatPassword">Repetir contraseña:</label>
               <div className="container_password_input">
                 <input
+                  className="general_input"
                   type={showPasswordRepeat ? "text" : "password"}
                   placeholder="Ingrese su contraseña..."
                   id="repeatPassword"
@@ -133,7 +137,7 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
               </div>
             </div>
             <button className="button_general login_modal_login_button">
-              Iniciar sesión
+              Registrarte
             </button>
           </form>
           <p className="specific_p">

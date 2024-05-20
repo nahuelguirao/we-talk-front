@@ -29,13 +29,9 @@ export const ModalsContextProvider = ({ children }: ProviderProps) => {
     setShowLoginModal(true);
   };
 
-  const closeLoginModal = () => {
-    setShowLoginModal(false);
-  };
+  const closeLoginModal = () => setShowLoginModal(false);
 
-  const closeRegisterModal = () => {
-    setShowRegisterModal(false);
-  };
+  const closeRegisterModal = () => setShowRegisterModal(false);
 
   return (
     <ModalsContext.Provider

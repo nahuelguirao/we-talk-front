@@ -27,13 +27,15 @@ export function useGoogle() {
       );
 
       //Desestructured elements from the response of Firebase
-      const { displayName, email, photoURL } = responseGoogle.user;
+      const { displayName, email, photoURL, uid } =
+        responseGoogle.user.providerData[0];
 
       //Prepares data for the API conditions
       const userCredentials = {
         name: displayName,
         email,
         imageURL: photoURL,
+        uid,
       };
 
       //Tries to fetch with de userCredentials
@@ -52,7 +54,12 @@ export function useGoogle() {
         //Set Token in local storage + Global user context + Welcome alert
         setUser(result);
         localStorage.setItem("token", result.token);
-        toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
+        toast(
+          `¡Bienvenid@${
+            result.user.username ? " " + result.user.username : ""
+          }!`,
+          { icon: "👋" }
+        );
         navigate("/");
       } else {
         setIsLoading(false);

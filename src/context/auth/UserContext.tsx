@@ -3,6 +3,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useEffect,
   useState,
 } from "react";
 import { UserData } from "../../types";
@@ -13,6 +14,7 @@ import toast from "react-hot-toast";
 const initialState = {
   token: undefined,
   user: {
+    id: undefined,
     username: undefined,
     email: undefined,
     imageURL: undefined,
@@ -25,6 +27,7 @@ interface Props {
   isLoading: boolean;
   setIsLoading: Dispatch<boolean>;
   logout: () => void;
+  showSetUsernameModal: boolean;
 }
 
 export const UserContext = createContext<Props>({
@@ -33,10 +36,12 @@ export const UserContext = createContext<Props>({
   isLoading: false,
   setIsLoading: () => {},
   logout: () => {},
+  showSetUsernameModal: false,
 });
 
 //USER PROVIDER
 export const UserContextProvider = ({ children }: { children: ReactNode }) => {
+  const [showSetUsernameModal, setShowUsernameModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<UserData>(() => {
     //Tries to get token from local storage
@@ -82,9 +87,27 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
+  //Verify everty time user is updated (if it has an username, if it not show modal)
+  useEffect(() => {
+    const isAuthenticated = user && user.token != undefined;
+
+    if (isAuthenticated && user.user.username == null) {
+      setShowUsernameModal(true);
+    } else {
+      setShowUsernameModal(false);
+    }
+  }, [user]);
+
   return (
     <UserContext.Provider
-      value={{ user, setUser, isLoading, setIsLoading, logout }}
+      value={{
+        user,
+        setUser,
+        isLoading,
+        setIsLoading,
+        logout,
+        showSetUsernameModal,
+      }}
     >
       {children}
     </UserContext.Provider>

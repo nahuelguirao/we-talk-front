@@ -1,7 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../context/auth/UserContext";
 import { ModalsContext } from "../context/auth/ModalsContext";
-import { Loading } from "../components/global/Loading";
 import { WelcomeLeft } from "../components/auth/WelcomeLeft";
 import { WelcomeRight } from "../components/auth/WelcomeRight";
 import { LoginModal } from "../components/auth/LoginModal";
@@ -18,13 +16,8 @@ export function AuthRoute() {
     closeRegisterModal,
   } = useContext(ModalsContext);
 
-  //Loading global context
-  const { isLoading } = useContext(UserContext);
-
   return (
     <>
-      {/* Hamster Loader */}
-      {isLoading && <Loading text="Espera" />}
       {/* Welcome Page */}
       <main className="welcome_main">
         {/* LEFT SIDE */}

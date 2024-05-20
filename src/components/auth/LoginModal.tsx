@@ -38,6 +38,7 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
             <div className="container_input_form">
               <label htmlFor="email">E-mail:</label>
               <input
+                className="general_input"
                 type="email"
                 placeholder="Ingrese su E-mail..."
                 id="email"
@@ -51,6 +52,7 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
               <label htmlFor="passwordLogin">Contraseña:</label>
               <div className="container_password_input">
                 <input
+                  className="general_input"
                   type={showPassword ? "text" : "password"}
                   placeholder="Ingrese su contraseña..."
                   id="passwordLogin"

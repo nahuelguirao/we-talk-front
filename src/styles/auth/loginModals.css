@@ -70,7 +70,7 @@
     font-weight: 500;
 }
 
-.login_modal form input {
+.general_input {
     padding: 5px 0 5px 10px;
     height: 30px;
     border: none;
@@ -133,6 +133,25 @@
 
 .specific_p {
     margin: 50px 0 20px 0;
+}
+
+.modal_setusername {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #A8CD9F;
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 20px;
+}
+
+.modal_setusername h3 {
+    margin-bottom: 20px;
+}
+
+.modal_setusername button {
+    margin-top: 30px;
 }
 
 @media (min-width: 550px) {
