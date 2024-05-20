@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { UserData } from "../../types";
+import { BASE_URL } from "../../global";
 import toast from "react-hot-toast";
 
 //USER CONTEXT + Initial State
@@ -44,7 +45,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
     //If there is a token tries to check validity
     if (localStorageToken) {
       setIsLoading(true);
-      fetch("http://localhost:3000/users/verify-token", {
+      fetch(`${BASE_URL}/users/verify-token`, {
         headers: {
           token: localStorageToken,
         },

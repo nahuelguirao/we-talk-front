@@ -6,6 +6,7 @@ import {
   verifyPassword,
   verifyUser,
 } from "../../helpers/verifications";
+import { BASE_URL } from "../../global";
 import toast from "react-hot-toast";
 
 export function useRegister() {
@@ -85,7 +86,7 @@ export function useRegister() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/users/register", {
+      const response = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

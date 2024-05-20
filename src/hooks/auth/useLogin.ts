@@ -1,9 +1,10 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/auth/UserContext";
-import { verifyEmail } from "../../helpers/verifications";
-import toast from "react-hot-toast";
 import { ModalsContext } from "../../context/auth/ModalsContext";
+import { verifyEmail } from "../../helpers/verifications";
+import { BASE_URL } from "../../global";
+import toast from "react-hot-toast";
 
 interface LoginFormValues {
   email: string;
@@ -54,7 +55,7 @@ export function useLogin() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/users/login", {
+      const response = await fetch(`${BASE_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

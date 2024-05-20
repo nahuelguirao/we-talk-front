@@ -4,6 +4,7 @@ import { UserContext } from "../../context/auth/UserContext";
 import { ModalsContext } from "../../context/auth/ModalsContext";
 import { firebaseAuth } from "../../firebase/config";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { BASE_URL } from "../../global";
 import toast from "react-hot-toast";
 
 export function useGoogle() {
@@ -36,7 +37,7 @@ export function useGoogle() {
       };
 
       //Tries to fetch with de userCredentials
-      const response = await fetch("http://localhost:3000/users/google", {
+      const response = await fetch(`${BASE_URL}/users/google`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
