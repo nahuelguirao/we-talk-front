@@ -5,7 +5,7 @@ import { WelcomeRight } from "../components/auth/WelcomeRight";
 import { LoginModal } from "../components/auth/LoginModal";
 import { RegisterModal } from "../components/auth/RegisterModal";
 
-export function AuthRoute() {
+export function LoginRoute() {
   //Modals Context utilities
   const {
     showLoginModal,

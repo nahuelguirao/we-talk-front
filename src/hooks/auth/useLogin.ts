@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/auth/UserContext";
 import { ModalsContext } from "../../context/auth/ModalsContext";
-import { verifyEmail } from "../../helpers/verifications";
+import { verifyEmail } from "../../helpers/auth/verifications";
 import { BASE_URL } from "../../global";
 import toast from "react-hot-toast";
 

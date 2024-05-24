@@ -5,7 +5,7 @@ import {
   verifyEmail,
   verifyPassword,
   verifyUser,
-} from "../../helpers/verifications";
+} from "../../helpers/auth/verifications";
 import { BASE_URL } from "../../global";
 import toast from "react-hot-toast";
 

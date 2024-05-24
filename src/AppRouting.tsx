@@ -5,8 +5,8 @@ import { Loading } from "./components/global/Loading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PrivateRoute, PublicRoute } from "./routes/config/Config";
 import { Toaster } from "react-hot-toast";
-import { AuthRoute } from "./routes/AuthRoute";
-import { HomeRoute } from "./routes/HomeRoute";
+import { LoginRoute } from "./routes/LoginRoute";
+import { GeneralRoute } from "./routes/GeneralRoutes";
 import "./styles/auth/login.css";
 import "./styles/auth/loginModals.css";
 
@@ -32,10 +32,10 @@ function App() {
       {isLoading && <Loading text="Espera" />}
       {/* ROUTES */}
       <Routes>
-        <Route path="/" element={<PrivateRoute element={<HomeRoute />} />} />
+        <Route path="*" element={<PrivateRoute element={<GeneralRoute />} />} />
         <Route
           path="/unite"
-          element={<PublicRoute element={<AuthRoute />} />}
+          element={<PublicRoute element={<LoginRoute />} />}
         />
       </Routes>
     </BrowserRouter>
