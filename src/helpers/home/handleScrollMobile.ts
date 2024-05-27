@@ -7,6 +7,7 @@ export const handleScrollMobile = (
 ) => {
   const scrollHandler = () => {
     if (contentRef.current) {
+      // If the position of the 'section/children' is higher that de threshold sets state to true
       if (contentRef.current.scrollTop > scrollThreshold) {
         handleScroll(true);
       } else {

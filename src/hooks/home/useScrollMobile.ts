@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useState } from "react";
 import { handleScrollMobile } from "../../helpers/home/handleScrollMobile";
 
+// Custom hook to detect scroll in mobile (to hide navs)
 export const useScrollMobile = (
   contentRef: MutableRefObject<HTMLElement | null>,
   scrollThreshold: number

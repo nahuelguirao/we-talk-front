@@ -1,6 +1,7 @@
 import { UserData } from "../../types";
 import "../../styles/home/userPreview.css";
 
+// BOX TO SHOW USER PREVIEW IMG + USERNAME + BUTTON FOLLOW
 export function UserPreview({ user }: { user: UserData }) {
   return (
     <div className="user_preview_box">
