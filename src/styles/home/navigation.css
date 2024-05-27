@@ -1,10 +1,14 @@
-.main_mobile {
+.main_home {
     height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 .home_aside {
+    display: none;
+}
+
+.home_aside_recomendations {
     display: none;
 }
 
@@ -147,10 +151,20 @@
     height: 100%;
     overflow-y: auto;
     background-color: #dbf1b87e;
+    padding: 10px;
 }
 
 
 @media (min-width: 550px) {
+    .home_content_section {
+        height: auto;
+        padding: 10px;
+    }
+
+    .route_content_section {
+        padding: 10px;
+    }
+
     .home_mobile_header {
         display: none;
     }
@@ -160,6 +174,193 @@
     }
 
     .home_mobile_aside {
+        display: none;
+    }
+
+    .main_home {
+        display: grid;
+        grid-template-columns: 1fr 7fr;
+    }
+
+    .home_aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-right: 2px solid #402B3A;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .home_aside_logo {
+        margin-top: 30px;
+        width: 50px;
+        cursor: pointer;
+    }
+
+    .home_aside_links_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        height: 100%;
+        margin-top: 30px;
+    }
+
+    .home_aside_link_box h3 {
+        display: none;
+    }
+
+    .home_aside_links_container svg {
+        border-radius: 100vmax;
+        padding: 4px 5px;
+        cursor: pointer;
+        font-size: 2rem;
+        transition: 200ms;
+    }
+
+    .home_aside_link_box {
+        border-radius: 100vmax;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .home_aside_links_container .home_aside_link_box:hover {
+        background-color: #402b3a18;
+        transform: scale(1.1);
+    }
+
+    .home_aside_create_post {
+        position: relative;
+        display: flex;
+        margin-top: 20px;
+        padding: 8px;
+        background-color: #58A399;
+        color: white;
+        border-radius: 100vmax;
+    }
+
+    .home_aside_create_post p {
+        position: absolute;
+        top: 0;
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+
+    .home_aside_user_container {
+        margin-top: auto;
+        margin-bottom: 30px;
+    }
+
+    .home_aside_user_container h3 {
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 1050px) {
+    .main_home {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .home_content_section {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        overflow-y: scroll
+    }
+
+    .route_content_section {
+        width: 80%;
+        height: fit-content;
+    }
+
+    .home_aside {
+        width: 125px;
+    }
+
+    .home_aside_recomendations {
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        padding-right: 10%;
+        position: sticky;
+        top: 0;
+    }
+
+    .home_aside_recomendations_search {
+        margin-top: 10px;
+        position: absolute;
+    }
+
+    .home_aside_recomendations_search input {
+        padding-left: 30px;
+        min-width: 200px;
+    }
+
+    .home_aside_recomendations_search svg {
+        position: absolute;
+        top: 8px;
+        left: 5px;
+        font-size: 1.5rem;
+    }
+
+    .home_aside_recomendations_news {
+        margin-top: 75px;
+        border: 1px solid #402B3A;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    }
+
+    .home_aside_recomendations_news h4 {
+        font-size: .9rem;
+        margin-bottom: 30px;
+    }
+}
+
+@media (min-width: 1300px) {
+    .home_aside {
+        align-items: flex-start;
+        padding-left: 5%;
+        width: 25%;
+        max-width: 250px;
+    }
+
+    .home_aside_logo {
+        margin-left: 12px;
+    }
+
+    .home_aside_links_container {
+        align-items: flex-start;
+    }
+
+    .home_aside_link_box {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+
+    .home_aside_link_box h3 {
+        display: block;
+    }
+
+    .home_aside_links_container .home_aside_link_box:hover {
+        transform: scale(1);
+    }
+
+    .home_aside_create_post {
+        align-self: flex-start;
+        justify-content: center;
+        width: 80%;
+    }
+
+    .home_aside_create_post p {
+        display: none;
+    }
+
+    .home_aside_create_post svg {
         display: none;
     }
 }

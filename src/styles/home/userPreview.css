@@ -1,0 +1,28 @@
+.user_preview_container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.user_preview_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+}
+
+.user_preview_box button {
+    height: 20px;
+    width: fit-content;
+    padding: 0 10px;
+}
+
+.user_preview_info {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.user_preview_info h3 {
+    font-size: .8rem;
+}

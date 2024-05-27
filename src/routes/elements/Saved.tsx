@@ -1,3 +1,7 @@
 export function Saved() {
-	return <h1>Guardados</h1>;
+  return (
+    <section className="route_content_section">
+      <h1>Guardados</h1>
+    </section>
+  );
 }

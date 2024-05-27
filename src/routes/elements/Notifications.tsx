@@ -1,3 +1,7 @@
 export function Notifications() {
-  return <h1>Notificaciones</h1>;
+  return (
+    <section className="route_content_section">
+      <h1>Notificaciones</h1>
+    </section>
+  );
 }

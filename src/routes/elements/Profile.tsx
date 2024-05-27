@@ -1,3 +1,7 @@
 export function Profile() {
-  return <h1>Perfil</h1>;
+  return (
+    <section className="route_content_section">
+      <h1>Perfil</h1>
+    </section>
+  );
 }

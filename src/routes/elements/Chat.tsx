@@ -1,3 +1,7 @@
 export function Chat() {
-  return <h1>Chat</h1>;
+  return (
+    <section className="route_content_section">
+      <h1>Chat</h1>
+    </section>
+  );
 }
