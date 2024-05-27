@@ -7,11 +7,11 @@ import { PiTagSimpleFill } from "react-icons/pi";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import parrotImg from "../assets/parrotLogo.png";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Publicaciones } from "./elements/Publicaciones";
-import { Perfil } from "./elements/Perfil";
-import { Buscar } from "./elements/Buscar";
+import { Posts } from "./elements/Posts";
+import { Profile } from "./elements/Profile";
+import { Search } from "./elements/Search";
 import { Chat } from "./elements/Chat";
-import { Notificaciones } from "./elements/Notificaciones";
+import { Notifications } from "./elements/Notifications";
 import { Saved } from "./elements/Saved";
 import "../styles/home/navigation.css";
 
@@ -31,16 +31,26 @@ export function GeneralRoute() {
 
   return (
     <main className="main_mobile">
+      {/* MOBILE HEADER */}
       <header
         className={`home_mobile_header 
         ${isScrolled ? "home_mobile_header_hide" : "home_mobile_header_show"}`}
       >
-        <img
-          src={user.user.imageURL}
-          alt="User image"
-          className="home_mobile_header_user_image"
-          onClick={() => setShowAside(true)}
-        />
+        {user.user.imageURL ? (
+          <img
+            src={user.user.imageURL}
+            alt="User image"
+            className="home_mobile_header_user_image"
+            onClick={() => setShowAside(true)}
+          />
+        ) : (
+          <p
+            className="home_mobile_header_no_image"
+            onClick={() => setShowAside(true)}
+          >
+            {user.user.username ? user.user.username[0].toUpperCase() : "W"}
+          </p>
+        )}
         <img
           src={parrotImg}
           alt="We talk logo"
@@ -48,7 +58,7 @@ export function GeneralRoute() {
         />
         <div />
       </header>
-      {/* ASIDE */}
+      {/* SLIDER ASIDE */}
       {showAside && (
         <aside
           className={`home_mobile_aside ${
@@ -60,11 +70,21 @@ export function GeneralRoute() {
             onClick={() => setShowAside(false)}
           />
           <header className="home_mobile_aside_header">
-            <img
-              src={user.user.imageURL}
-              alt="User image"
-              className="home_mobile_header_user_image"
-            />
+            {user.user.imageURL ? (
+              <img
+                src={user.user.imageURL}
+                alt="User image"
+                className="home_mobile_header_user_image"
+                onClick={() => setShowAside(true)}
+              />
+            ) : (
+              <p
+                className="home_mobile_header_no_image"
+                onClick={() => setShowAside(true)}
+              >
+                {user.user.username ? user.user.username[0].toUpperCase() : "W"}
+              </p>
+            )}
             <h4 className="home_mobile_aside_username">{user.user.username}</h4>
           </header>
           <section className="home_mobile_aside_follower_container">
@@ -103,16 +123,22 @@ export function GeneralRoute() {
           </section>
         </aside>
       )}
+
+      {/* NORMAL ASIDE */}
+      <aside className="home_aside">
+        <h1>Aside</h1>
+      </aside>
       <section className="home_content_section" ref={sectionContentRef}>
         <Routes>
-          <Route path="/" element={<Publicaciones />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/buscar" element={<Buscar />} />
+          <Route path="/" element={<Posts />} />
+          <Route path="/perfil" element={<Profile />} />
+          <Route path="/buscar" element={<Search />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/notificaciones" element={<Notificaciones />} />
+          <Route path="/notificaciones" element={<Notifications />} />
           <Route path="/guardados" element={<Saved />} />
         </Routes>
       </section>
+      {/* MOBILE NAVIGATION (bottom) */}
       <nav
         className={`home_mobile_navigation ${
           isScrolled

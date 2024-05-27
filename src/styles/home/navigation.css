@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+.home_aside {
+    display: none;
+}
+
 /* MOBILE HEADER */
 
 .home_mobile_header {
@@ -26,6 +30,17 @@
 .home_mobile_header_user_image {
     border-radius: 100vmax;
     width: 40px;
+}
+
+.home_mobile_header_no_image {
+    border-radius: 100vmax;
+    background-color: #E2F4C5;
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .home_mobile_header_logo {
