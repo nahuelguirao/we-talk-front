@@ -1,18 +1,23 @@
-import parrotImg from "../../assets/parrotLogo.png";
-import weLoveImg from "../../assets/loginImg.png";
+import Image from "next/image";
 
 export function WelcomeLeft() {
+  //WELCOME LEFT SIDE
   return (
     <>
-      {/* LEFT SIDE */}
       <section className="section_love">
-        <img
-          src={parrotImg}
+        <Image
+          priority={true}
+          src="/parrotLogo.png"
+          width={50}
+          height={50}
           alt="Parrot logo"
           className="section_love_img_parrot"
         />
-        <img
-          src={weLoveImg}
+        <Image
+          priority={true}
+          src="/loginImg.png"
+          width={400}
+          height={400}
           alt="We love it image"
           className="section_love_img_welove"
         />

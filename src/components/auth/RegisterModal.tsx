@@ -1,19 +1,15 @@
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useRegister } from "../../hooks/auth/useRegister";
-import { useGoogle } from "../../hooks/auth/useGoogle";
-import { IoIosClose } from "react-icons/io";
+import { useGoogle } from "@/hooks/auth/useGoogle";
+import { useRegister } from "@/hooks/auth/useRegister";
+import { Requirements } from "./Requirements";
 import { BiHide, BiShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import { FaCircleInfo } from "react-icons/fa6";
-import parrotImg from "../../assets/parrotLogo.png";
-import { usePasswordRequirements } from "../../hooks/auth/usePasswordRequirements";
+import { IoIosClose } from "react-icons/io";
 
-interface Props {
-  navigateToLogin: () => void;
-  closeRegisterModal: () => void;
-}
-
-export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
+export function RegisterModal() {
   //Register (normal) hook
   const { registerFormValues, handleRegisterValues, handleRegister } =
     useRegister();
@@ -21,27 +17,27 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
   //Google Auth hook
   const { googleAuth } = useGoogle();
 
-  //Password requirements hook
-  const {
-    passwordRequirements,
-    handleMouseEnter,
-    handleMouseLeave,
-    tooglePasswordRequirements,
-  } = usePasswordRequirements();
-
   //Passwords visibles state
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
+  const router = useRouter(); //Router
+
   return (
-    <div className="modal-overlay">
-      {/* MODAL */}
+    <main className="modal-overlay">
+      {/* REGISTER MODAL */}
       <div className="modal login_modal">
         <IoIosClose
           className="login_modal_close"
-          onClick={closeRegisterModal}
+          onClick={() => router.push("/bienvenida")}
         />
-        <img src={parrotImg} alt="Parrot logo" />
+        <Image
+          priority={true}
+          src="/parrotLogo.png"
+          width={50}
+          height={50}
+          alt="Parrot logo"
+        />
         <div className="login_modal_info_container">
           <h3>Únete a WeTalk hoy</h3>
           <button className="button_general button_google" onClick={googleAuth}>
@@ -96,23 +92,8 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
                   )}
                 </div>
               </div>
-              <div className="password_requirements">
-                <h5
-                  className="password_requirements_h5"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  onClick={tooglePasswordRequirements}
-                >
-                  Mirá los requisitos <FaCircleInfo />
-                </h5>
-                {passwordRequirements && (
-                  <div className="password_requirements_info">
-                    <p>* Mínimo 8 caracteres o más.</p>
-                    <p>* Al menos 1 letra mayúscula.</p>
-                    <p>* Un carácter especial (*, @, =, etc.).</p>
-                  </div>
-                )}
-              </div>
+              {/* PASSWORD REQUIREMENTS BOX */}
+              <Requirements />
             </div>
             {/* REPEAT PASSWORD INPUT */}
             <div className="container_input_form">
@@ -140,14 +121,12 @@ export function RegisterModal({ navigateToLogin, closeRegisterModal }: Props) {
               Registrarte
             </button>
           </form>
-          <p className="specific_p">
+          <p className="specific_p" onClick={() => router.push("/ingresar")}>
             ¿Ya tienes cuenta?{" "}
-            <span className="login_terms_span" onClick={navigateToLogin}>
-              Inicia sesión
-            </span>
+            <span className="login_terms_span">Inicia sesión</span>
           </p>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

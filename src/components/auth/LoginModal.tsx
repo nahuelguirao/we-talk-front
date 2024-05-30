@@ -1,32 +1,41 @@
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useLogin } from "../../hooks/auth/useLogin";
-import { useGoogle } from "../../hooks/auth/useGoogle";
-import { IoIosClose } from "react-icons/io";
+import { useGoogle } from "@/hooks/auth/useGoogle";
+import { useLogin } from "@/hooks/auth/useLogin";
 import { BiHide, BiShow } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import parrotImg from "../../assets/parrotLogo.png";
+import { IoIosClose } from "react-icons/io";
 
-interface Props {
-  navigateToRegister: () => void;
-  closeLoginModal: () => void;
-}
+export function LoginModal() {
+  // Custom hook to Login (normal)
+  const { handeLoginValues, handleLogin, loginFormValues } = useLogin();
 
-export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
-  //Google Auth hook
+  // Custom hook to Login (Google)
   const { googleAuth } = useGoogle();
 
-  //Login (normal) hook
-  const { loginFormValues, handeLoginValues, handleLogin } = useLogin();
+  //Router to push routes
+  const router = useRouter();
 
   //Show password state
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="modal-overlay">
-      {/* MODAL */}
+    <main className="modal-overlay">
+      {/* LOGIN MODAL */}
       <div className="modal login_modal">
-        <IoIosClose className="login_modal_close" onClick={closeLoginModal} />
-        <img src={parrotImg} alt="Parrot logo" />
+        <IoIosClose
+          className="login_modal_close"
+          onClick={() => router.push("/bienvenida")}
+        />
+        <Image
+          src="/parrotLogo.png"
+          width={50}
+          height={50}
+          alt="Parrot logo"
+          priority={true}
+        />
         <div className="login_modal_info_container">
           <h3>Inicia sesión en WeTalk</h3>
           <button className="button_general button_google" onClick={googleAuth}>
@@ -73,14 +82,12 @@ export function LoginModal({ closeLoginModal, navigateToRegister }: Props) {
               Iniciar sesión
             </button>
           </form>
-          <p className="specific_p">
+          <p className="specific_p" onClick={() => router.push("/registrate")}>
             ¿No tienes cuenta?{" "}
-            <span className="login_terms_span" onClick={navigateToRegister}>
-              Regístrate
-            </span>
+            <span className="login_terms_span">Regístrate</span>
           </p>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

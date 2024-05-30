@@ -1,23 +1,16 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/auth/UserContext";
-import { ModalsContext } from "../../context/auth/ModalsContext";
-import { verifyEmail } from "../../helpers/auth/verifications";
-import { BASE_URL } from "../../global";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUserContext } from "@/context/auth/userContext";
+import { verifyEmail } from "@/helpers/auth/verifications";
+import { BASE_URL } from "@/global";
+import { LoginFormValues } from "@/types";
 import toast from "react-hot-toast";
 
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
-
 export function useLogin() {
-  //Navigate hook
-  const navigate = useNavigate();
+  //User Context Utilities
+  const { setUser, setIsLoading } = useUserContext();
 
-  // GLOBAL STATE UTILITIES
-  const { setUser, setIsLoading } = useContext(UserContext);
-  const { closeLoginModal, closeRegisterModal } = useContext(ModalsContext);
+  const router = useRouter(); //Router
 
   //Object to manage form values
   const [loginFormValues, setLoginFormValues] = useState({
@@ -35,13 +28,12 @@ export function useLogin() {
     }));
   };
 
-  //Tries to LOGIN an user
+  //Handle NORMAL login
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { email, password } = loginFormValues;
-
     //VERIFICATIONS
+    const { email, password } = loginFormValues;
     if (email.length === 0 || password.length === 0) {
       toast("¡Completa los campos primero!", { icon: "⚠️" });
       return;
@@ -52,8 +44,8 @@ export function useLogin() {
       return;
     }
 
+    // TRIES TO LOGIN
     setIsLoading(true);
-
     try {
       const response = await fetch(`${BASE_URL}/users/login`, {
         method: "POST",
@@ -66,22 +58,24 @@ export function useLogin() {
       const result = await response.json();
 
       if (response.ok) {
-        setIsLoading(false);
-        //Sets user data in the context + local storage token
-        setUser(result);
-        localStorage.setItem("token", result.token);
-        navigate("/");
-        toast(`¡Bienvenid@ ${result.user.username}!`, { icon: "👋" });
-        closeLoginModal();
-        closeRegisterModal();
+        //If there is a token, sets a cookie with it
+        const token = result.token;
+        if (token) {
+          document.cookie = `token=${token}`;
+        }
+
+        setUser(result.user); //Sets userData in context
+
+        //Push URL to '/inicio'
+        router.push("/inicio");
       } else {
-        setIsLoading(false);
         toast.error(result.error);
       }
     } catch (error) {
-      setIsLoading(false);
       toast.error("Error interno del servidor, intente nuevamente.");
       console.error("Error intentando logear al usuario: ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

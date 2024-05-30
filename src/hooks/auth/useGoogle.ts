@@ -1,25 +1,21 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/auth/UserContext";
-import { ModalsContext } from "../../context/auth/ModalsContext";
-import { firebaseAuth } from "../../firebase/config";
+import { useRouter } from "next/navigation";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { BASE_URL } from "../../global";
+import { firebaseAuth } from "@/config/firebaseConfig";
+import { useUserContext } from "@/context/auth/userContext";
+import { BASE_URL } from "@/global";
 import toast from "react-hot-toast";
 
 export function useGoogle() {
-  //Navigate hook
-  const navigate = useNavigate();
+  //User context utilities
+  const { setUser, setIsLoading } = useUserContext();
 
-  //GLOBAL STATE UTILITIES
-  const { setUser, setIsLoading } = useContext(UserContext);
-  const { closeRegisterModal, closeLoginModal } = useContext(ModalsContext);
+  const router = useRouter(); //Router
 
   //Google auth process
   const googleAuth = async () => {
     setIsLoading(true);
     try {
-      //Init a google provider from Firebase
+      //Init a google provider from Firebase (popup)
       const googleProvider = new GoogleAuthProvider();
       const responseGoogle = await signInWithPopup(
         firebaseAuth,
@@ -38,7 +34,7 @@ export function useGoogle() {
         uid,
       };
 
-      //Tries to fetch with de userCredentials
+      //Tries to fetch with userCredentials
       const response = await fetch(`${BASE_URL}/users/google`, {
         method: "POST",
         headers: {
@@ -50,33 +46,27 @@ export function useGoogle() {
       const result = await response.json();
 
       if (response.ok) {
-        setIsLoading(false);
-        //Set Token in local storage + Global user context + Welcome alert
-        setUser(result);
-        localStorage.setItem("token", result.token);
-        toast(
-          `¡Bienvenid@${
-            result.user.username ? " " + result.user.username : ""
-          }!`,
-          { icon: "👋" }
-        );
-        navigate("/");
-      } else {
-        setIsLoading(false);
-        toast.error(result.error);
+        //If there is a token in the response, sets a cookie with it
+        const token = result.token;
+        if (token) {
+          document.cookie = `token=${token}`;
+        }
+
+        setUser(result.user); //Set userData in context
+
+        //Push URL to /inicio
+        router.push("/inicio");
       }
     } catch (error: any) {
-      setIsLoading(false);
       // Specific error alert (if the use close google popup before login)
       if (error.code === "auth/popup-closed-by-user") {
-        toast.error("Algo salió mal, intenta denuevo.");
+        toast.error("Ventana cerrada, intenta denuevo.");
       } else {
         toast.error("Error interno del servidor, intente nuevamente.");
         console.error("Error durante la autenticación con Google: ", error);
       }
     } finally {
-      closeLoginModal();
-      closeRegisterModal();
+      setIsLoading(false);
     }
   };
 

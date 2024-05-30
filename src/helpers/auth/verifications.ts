@@ -33,11 +33,10 @@ export const verifyEmail = (email: string) => {
   }
 
   //Verify is an email
-  if (
-    !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/.test(
-      email
-    )
-  ) {
+  const passwordRegex =
+    /^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/;
+
+  if (!passwordRegex.test(email)) {
     return false;
   }
 

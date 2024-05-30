@@ -1,24 +1,20 @@
 import { useState } from "react";
 
 export function usePasswordRequirements() {
-  const [passwordRequirements, setPasswordRequirements] = useState(false);
+  //SHOW / HIDE STATE
+  const [showRequirements, setPasswordRequirements] = useState(false);
 
   //SHOW / HIDE password requirement box
-  const handleMouseEnter = () => {
-    setPasswordRequirements(true);
-  };
+  const handleMouseEnter = () => setPasswordRequirements(true);
 
-  const handleMouseLeave = () => {
-    setPasswordRequirements(false);
-  };
+  const handleMouseLeave = () => setPasswordRequirements(false);
 
-  const tooglePasswordRequirements = () => {
-    setPasswordRequirements(!passwordRequirements);
-  };
+  const toogleRequirements = () => setPasswordRequirements(!showRequirements);
+
   return {
-    passwordRequirements,
+    showRequirements,
     handleMouseEnter,
     handleMouseLeave,
-    tooglePasswordRequirements,
+    toogleRequirements,
   };
 }

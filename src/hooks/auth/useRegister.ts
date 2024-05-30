@@ -1,18 +1,20 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { UserContext } from "../../context/auth/UserContext";
-import { ModalsContext } from "../../context/auth/ModalsContext";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUserContext } from "@/context/auth/userContext";
+import { showToast } from "@/helpers/global/showToast";
 import {
   verifyEmail,
   verifyPassword,
   verifyUser,
-} from "../../helpers/auth/verifications";
-import { BASE_URL } from "../../global";
+} from "@/helpers/auth/verifications";
+import { BASE_URL } from "@/global";
 import toast from "react-hot-toast";
 
 export function useRegister() {
-  //GLOBAL STATE UTILITIES
-  const { setIsLoading } = useContext(UserContext);
-  const { navigateToLogin } = useContext(ModalsContext);
+  //Context utilities
+  const { setIsLoading } = useUserContext();
+
+  const router = useRouter(); //Router
 
   //Object to manage form values
   const [registerFormValues, setRegisterFormValues] = useState({
@@ -32,47 +34,45 @@ export function useRegister() {
     }));
   };
 
-  //Tries to REGISTER an user
+  //Tries to register an user (Normal)
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { username, email, password, repeatPassword } = registerFormValues;
 
     // VERIFICATIONS
+    const { username, email, password, repeatPassword } = registerFormValues;
     if (
       username.length === 0 ||
       email.length === 0 ||
       password.length === 0 ||
       repeatPassword.length === 0
     ) {
-      toast("Primero completa todos los campos", { icon: "⚠️" });
+      showToast("Primero completa todos los campos", { icon: "⚠️" });
       return;
     }
 
     if (password != repeatPassword) {
-      toast("¡Las contraseñas no coinciden!", { icon: "⚠️" });
+      showToast("¡Las contraseñas no coinciden!", { icon: "⚠️" });
       return;
     }
 
     if (!verifyUser(username)) {
-      toast("El username tiene que tener entre 4 y 50 caracteres.", {
+      showToast("El username tiene que tener entre 4 y 50 caracteres.", {
         icon: "⚠️",
       });
       return;
     }
 
     if (!verifyEmail(email)) {
-      toast("Verifique haber ingresado un formato de E-mail válido.", {
+      showToast("Verifique haber ingresado un formato de E-mail válido.", {
         icon: "⚠️",
       });
       return;
     }
 
     if (!verifyPassword(password)) {
-      toast(
+      showToast(
         "La contraseña debe contener mínimo 8 caracteres, 1 mayúscula y 1 carácter especial.",
-        {
-          icon: "⚠️",
-        }
+        { icon: "⚠️" }
       );
       return;
     }
@@ -85,6 +85,7 @@ export function useRegister() {
 
     setIsLoading(true);
 
+    //Tries to register in DB with a API call
     try {
       const response = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
@@ -97,18 +98,17 @@ export function useRegister() {
       const result = await response.json();
 
       if (response.ok) {
-        setIsLoading(false);
-        //If all ok, navigates to LOGIN modal to sign in
-        toast(result.message + "\nInicia sesión.", { icon: "✔️" });
-        navigateToLogin();
+        //If the user is registered shows alert
+        showToast(result.message + "\nInicia sesión.", { icon: "✔️" });
+        router.push("/ingresar"); // + navigates to '/ingresar' (to log in)
       } else {
-        setIsLoading(false);
         toast.error(result.error);
       }
     } catch (error) {
-      setIsLoading(false);
       toast.error("Error interno del servidor, intente nuevamente.");
       console.error("Error registrando al usuario: ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
