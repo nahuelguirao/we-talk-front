@@ -7,6 +7,7 @@ import { useUserContext } from "@/context/auth/userContext";
 import { MobileSliderAside } from "./elements/MobileSlideAside";
 import { MobileBottomNavigation } from "./elements/MobileBottomNavigation";
 import { AsideLeft } from "./elements/AsideLeft";
+import Loading from "@/app/(routes)/loading";
 
 export function PrivateLayout({ children }: { children: ReactNode }) {
   //Context utilites
@@ -23,25 +24,33 @@ export function PrivateLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {/* MOBILE HEADER */}
-      <MobileHeader
-        isScrolled={isScrolled}
-        user={user}
-        setShowAside={setShowAside}
-      />
+      {user?.username ? (
+        <>
+          <MobileHeader
+            isScrolled={isScrolled}
+            user={user}
+            setShowAside={setShowAside}
+          />
 
-      {/* MOBILE SLIDER ASIDE (menu) */}
-      <MobileSliderAside setShowAside={setShowAside} showAside={showAside} />
+          {/* MOBILE SLIDER ASIDE (menu) */}
+          <MobileSliderAside
+            setShowAside={setShowAside}
+            showAside={showAside}
+          />
 
-      {/* MOBILE NAVIGATION (bottom) */}
-      <MobileBottomNavigation isScrolled={isScrolled} />
+          {/* MOBILE NAVIGATION (bottom) */}
+          <MobileBottomNavigation isScrolled={isScrolled} />
 
-      {/* NOT mobile Aside */}
-      <AsideLeft user={user} />
+          {/* NOT mobile Aside */}
+          <AsideLeft user={user} />
 
-      <section className="home_content_section" ref={sectionContentRef}>
-        {children}
-      </section>
+          <section className="home_content_section" ref={sectionContentRef}>
+            {children}
+          </section>
+        </>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }
