@@ -1,3 +1,11 @@
+:root {
+  --text-color: #402B3A;
+  --light-green: #A8CD9F;
+  --background-green: #DBF1B87E;
+  --button-color: #FFF6FC;
+  --button-hover-color: #DFD8DD;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,13 +13,13 @@
 }
 
 body {
-  color: #402B3A;
-  background-color: #A8CD9F;
+  color: var(--text-color);
+  background-color: var(--light-green);
   user-select: none;
 }
 
 a {
-  color: #402B3A;
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -72,7 +80,7 @@ a {
 }
 
 .modal {
-  background-color: #A8CD9F;
+  background-color: var(--light-green);
   padding: 30px 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -99,8 +107,8 @@ a {
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 500;
-  color: #402B3A;
-  background-color: #FFF6FC;
+  color: var(--text-color);
+  background-color: var(--button-color);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   cursor: pointer;
   width: 100%;
@@ -109,7 +117,7 @@ a {
 }
 
 .button_general:hover {
-  background-color: #dfd8dd;
+  background-color: var(--button-hover-color);
 }
 
 @media (min-width: 841px) {

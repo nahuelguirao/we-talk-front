@@ -18,7 +18,7 @@
 
 .separator {
     height: 2px;
-    background-color: #402B3A;
+    background-color: var(--text-color);
 }
 
 .section_account h2 {
@@ -39,25 +39,6 @@
 
 .google_svg {
     font-size: 1.5rem;
-}
-
-.button_general {
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #402B3A;
-    background-color: #FFF6FC;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 350px;
-    transition: 200ms;
-}
-
-.button_general:hover {
-    background-color: #dfd8dd;
 }
 
 .login_terms_p {

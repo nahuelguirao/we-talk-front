@@ -39,5 +39,12 @@ export default async function authMiddleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/inicio", "/chat"],
+  matcher: [
+    "/inicio",
+    "/chat",
+    "/buscar",
+    "/guardados",
+    "/notificaciones",
+    "/perfil",
+  ],
 };

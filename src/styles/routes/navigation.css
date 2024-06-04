@@ -20,7 +20,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid #402B3A;
+    border-bottom: 1px solid var(--text-color);
 }
 
 .home_mobile_header_hide {
@@ -52,7 +52,7 @@
 }
 
 .home_mobile_header_logout {
-    color: #402B3A;
+    color: var(--text-color);
     font-size: 1.8rem;
 }
 
@@ -61,9 +61,9 @@
 /* MOBILE NAVIGATION */
 
 .home_mobile_navigation {
-    background-color: #A8CD9F;
-    color: #402B3A;
-    border-top: 1px solid #402B3A;
+    background-color: var(--light-green);
+    color: var(--text-color);
+    border-top: 1px solid var(--text-color);
     height: 50px;
     position: absolute;
     bottom: 0;
@@ -95,7 +95,7 @@
     height: 100%;
     width: 80%;
     max-width: 350px;
-    background-color: #A8CD9F;
+    background-color: var(--light-green);
     padding-left: 10px;
     position: absolute;
     z-index: 98;
@@ -150,7 +150,7 @@
 .home_content_section {
     height: 100%;
     overflow-y: auto;
-    background-color: #dbf1b87e;
+    background-color: var(--background-green);
     padding: 10px;
 }
 
@@ -186,7 +186,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border-right: 2px solid #402B3A;
+        border-right: 2px solid var(--text-color);
         height: 100%;
         overflow-y: auto;
     }
@@ -306,7 +306,7 @@
 
     .home_aside_recomendations_news {
         margin-top: 75px;
-        border: 1px solid #402B3A;
+        border: 1px solid var(--text-color);
         border-radius: 16px;
         padding: 20px;
         text-align: center;
