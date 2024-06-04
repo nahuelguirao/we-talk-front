@@ -1,9 +1,6 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function WelcomeRight() {
-  const router = useRouter(); //Router
-
   // WELCOME RIGHT SIDE
   return (
     <section className="section_account">
@@ -12,12 +9,9 @@ export function WelcomeRight() {
         Y se parte de la comunidad.
       </p>
       <div>
-        <button
-          className="button_general"
-          onClick={() => router.push("/registrate")}
-        >
-          Crear Cuenta
-        </button>
+        <Link href={"/registrate"}>
+          <button className="button_general">Crear Cuenta</button>
+        </Link>
         <p className="login_terms_p">
           Al registrarte aceptas{" "}
           <span className="login_terms_span">ser un loro</span> y... ¡
@@ -26,12 +20,11 @@ export function WelcomeRight() {
       </div>
       <div>
         <h4>¿Ya tienes una cuenta?</h4>
-        <button
-          className="button_general button_login"
-          onClick={() => router.push("/ingresar")}
-        >
-          Iniciar sesión
-        </button>
+        <Link href={"/ingresar"}>
+          <button className="button_general button_login">
+            Iniciar sesión
+          </button>
+        </Link>
       </div>
     </section>
   );

@@ -10,6 +10,11 @@ body {
   user-select: none;
 }
 
+a {
+  color: #402B3A;
+  text-decoration: none;
+}
+
 /* LOADING BETWEEN PAGES (small parrot ) */
 .parrot_loader_container {
   display: flex;

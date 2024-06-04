@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import { useGoogle } from "@/hooks/auth/useGoogle";
 import { useLogin } from "@/hooks/auth/useLogin";
@@ -15,9 +15,6 @@ export function LoginModal() {
   // Custom hook to Login (Google)
   const { googleAuth } = useGoogle();
 
-  //Router to push routes
-  const router = useRouter();
-
   //Show password state
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,10 +22,9 @@ export function LoginModal() {
     <main className="modal-overlay">
       {/* LOGIN MODAL */}
       <div className="modal login_modal">
-        <IoIosClose
-          className="login_modal_close"
-          onClick={() => router.push("/bienvenida")}
-        />
+        <Link href={"/bienvenida"}>
+          <IoIosClose className="login_modal_close" />
+        </Link>
         <Image
           src="/parrotLogo.png"
           width={50}
@@ -82,10 +78,12 @@ export function LoginModal() {
               Iniciar sesión
             </button>
           </form>
-          <p className="specific_p" onClick={() => router.push("/registrate")}>
-            ¿No tienes cuenta?{" "}
-            <span className="login_terms_span">Regístrate</span>
-          </p>
+          <Link href={"/registrate"}>
+            <p className="specific_p">
+              ¿No tienes cuenta?{" "}
+              <span className="login_terms_span">Regístrate</span>
+            </p>
+          </Link>
         </div>
       </div>
     </main>

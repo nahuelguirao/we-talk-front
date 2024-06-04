@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, createContext, useContext } from "react";
-import { useValidateToken } from "@/hooks/auth/useValidateToken";
+import { useGetUserData } from "@/hooks/auth/useValidateToken";
 import { UserData } from "@/types";
 
 //User Initial State skelton
@@ -28,8 +28,8 @@ export const userContext = createContext<ContextProps>({
 
 //User context PROVIDER
 export const UserContextProvider = ({ children }: { children: ReactNode }) => {
-  //Tries to validate token (if there's a previous cookie setted in document)
-  const { isLoading, setIsLoading, user, setUser } = useValidateToken();
+  //Tries to get user info (if there's a previous cookie setted in document by the authmiddleware)
+  const { isLoading, setIsLoading, user, setUser } = useGetUserData();
   //☝ REMEMBER! inside there's a useEffect that executes every time app is started
 
   return (

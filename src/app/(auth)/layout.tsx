@@ -5,6 +5,7 @@ import { useUserContext } from "@/context/auth/userContext";
 import { HamsterLoading } from "@/components/global/HamsterLoading";
 import "@/styles/auth/login.css";
 import "@/styles/auth/loginModals.css";
+import Loading from "../(routes)/loading";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   //Context utilities
@@ -21,12 +22,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {/* If there is no user logged in shows childrens */}
-      {!user && (
+      {/* If there is no user logged in shows childrens, if not show loading...*/}
+      {user?.username == undefined ? (
         <main>
           {isLoading && <HamsterLoading text="Espere" />}
           {children}
         </main>
+      ) : (
+        <Loading />
       )}
     </>
   );

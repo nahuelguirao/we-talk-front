@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import { useGoogle } from "@/hooks/auth/useGoogle";
 import { useRegister } from "@/hooks/auth/useRegister";
@@ -21,16 +21,13 @@ export function RegisterModal() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
-  const router = useRouter(); //Router
-
   return (
     <main className="modal-overlay">
       {/* REGISTER MODAL */}
       <div className="modal login_modal">
-        <IoIosClose
-          className="login_modal_close"
-          onClick={() => router.push("/bienvenida")}
-        />
+        <Link href={"/bienvenida"}>
+          <IoIosClose className="login_modal_close" />
+        </Link>
         <Image
           priority={true}
           src="/parrotLogo.png"
@@ -121,10 +118,15 @@ export function RegisterModal() {
               Registrarte
             </button>
           </form>
-          <p className="specific_p" onClick={() => router.push("/ingresar")}>
-            ¿Ya tienes cuenta?{" "}
-            <span className="login_terms_span">Inicia sesión</span>
-          </p>
+          <Link
+            href={"/ingresar"}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <p className="specific_p">
+              ¿Ya tienes cuenta?{" "}
+              <span className="login_terms_span">Inicia sesión</span>
+            </p>
+          </Link>
         </div>
       </div>
     </main>
