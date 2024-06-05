@@ -52,6 +52,12 @@ export function useGoogle() {
           document.cookie = `token=${token}`;
         }
 
+        const userData = result.userData;
+
+        if (userData) {
+          document.cookie = `user=${userData}`;
+        }
+
         setUser(result.user); //Set userData in context
 
         //Push URL to /inicio

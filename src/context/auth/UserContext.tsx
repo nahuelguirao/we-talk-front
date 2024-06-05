@@ -1,5 +1,7 @@
+"use client";
+
 import { Dispatch, ReactNode, createContext, useContext } from "react";
-import { useGetUserData } from "@/hooks/auth/useValidateToken";
+import { useGetUserData } from "@/hooks/auth/useGetUserData";
 import { UserData } from "@/types";
 
 //User Initial State skelton

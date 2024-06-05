@@ -4,6 +4,7 @@ import { IoChatboxEllipses, IoNotifications } from "react-icons/io5";
 import { PiTagSimpleFill } from "react-icons/pi";
 import { UserData } from "@/types";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
   user: UserData | undefined;
@@ -72,7 +73,9 @@ export function AsideLeft({ user }: Props) {
         {/* TODO: Create box to logout with hover */}
         <div className="home_aside_user_container home_aside_link_box">
           {user?.imageURL ? (
-            <img
+            <Image
+              width={40}
+              height={40}
               src={user.imageURL}
               alt="User image"
               className="home_mobile_header_user_image"

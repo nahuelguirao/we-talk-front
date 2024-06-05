@@ -1,50 +1,36 @@
-import { NextResponse, NextRequest } from "next/server";
-import { BASE_URL } from "./global";
+import { authMiddleware, authConfig } from "./middlewares/routesMiddleware";
+import {
+  redirectIfAuthenticated,
+  redirectConfig,
+} from "./middlewares/redirectMiddleware";
+import { NextRequest, NextResponse } from "next/server";
 
-//Fetches if a token is valid in API
-const validation = async (tokenCookie: string | undefined) => {
-  if (tokenCookie) {
-    try {
-      const response = await fetch(`${BASE_URL}/users/verify-token`, {
-        headers: { token: tokenCookie },
-      });
+const middleware = async (request: NextRequest) => {
+  const pathname = request.nextUrl.pathname;
 
-      const result = await response.json();
-
-      if (response.ok) {
-        return result.userData;
-      }
-    } catch (error) {
-      console.error(error);
+  // Run authMiddleware for paths matching its config
+  if (authConfig.matcher.includes(pathname)) {
+    const response = await authMiddleware(request);
+    if (response) {
+      return response;
     }
   }
-};
 
-//AUTH-MIDDLEWARE (Private routes)
-export default async function authMiddleware(request: NextRequest) {
-  const tokenCookie = request.cookies.get("token");
+  // Run redirectIfAuthenticated for paths matching its config
+  if (redirectConfig.matcher.includes(pathname)) {
+    const response = await redirectIfAuthenticated(request);
 
-  const userData = await validation(tokenCookie?.value);
-
-  if (!userData) {
-    //If not redirects to 'bievenida'
-    return NextResponse.redirect("http://localhost:3000/bienvenida");
+    if (response) {
+      return response;
+    }
   }
 
-  const response = NextResponse.next();
-  //Sets cookie in response with userData
-  response.cookies.set("user", JSON.stringify(userData));
-
-  return response;
-}
+  // If no middleware matches, continue with the request
+  return NextResponse.next();
+};
 
 export const config = {
-  matcher: [
-    "/inicio",
-    "/chat",
-    "/buscar",
-    "/guardados",
-    "/notificaciones",
-    "/perfil",
-  ],
+  matcher: [authConfig.matcher, redirectConfig.matcher],
 };
+
+export { middleware };

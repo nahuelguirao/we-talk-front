@@ -1,27 +1,28 @@
 import { useEffect, useState } from "react";
-import { getCookie } from "@/helpers/auth/getCookie";
 import { UserData } from "@/types";
+import { getCookie } from "@/helpers/auth/getCookie";
 
 export function useGetUserData() {
-  //States of loading + user
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<UserData | undefined>(undefined);
 
-  //Tries to get cookie with userData
   const getUserData = async () => {
     const userCookie = getCookie("user");
 
     if (userCookie) {
       setIsLoading(true);
-      const decodedUserCookie = decodeURIComponent(userCookie);
-      const userData = JSON.parse(decodedUserCookie);
-      setUser(userData);
+      try {
+        const decodedUserCookie = decodeURIComponent(userCookie);
+        const userData = JSON.parse(decodedUserCookie);
+        setUser(userData);
+      } catch (error) {
+        console.error("Error parseando cookie: ", error);
+      }
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
-  //Executes once to verify token validity
+  //To prevent ERROR (to acces document.cookies only in Client Side)
   useEffect(() => {
     getUserData();
   }, []);
